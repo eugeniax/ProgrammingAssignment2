@@ -1,12 +1,9 @@
-## Put comments here that give an overall description of what your
-## functions do
+## The function pair 'makeCacheMatrix' and 'cacheSolve' takes
+## advantage of the scoping roles of R to cache the value of a matrix's
+## inverse so it can be retrieved without computation if the matrix
+## contents have changed
 
 ## 'makeCacheMatrix' creates a special "matrix" object that can cache its inverse.
-## 'makeCacheMatirx' returns a list containing a function to
-## 1. set the value of the matrix
-## 2. get the value of the matrix
-## 3. set the value of the inverse
-## 4. get the value of the inverse
 
 makeCacheMatrix <- function(x = matrix()) {
     inv <- NULL
@@ -20,6 +17,11 @@ makeCacheMatrix <- function(x = matrix()) {
     list(set = set, get = get,
          setInverse = setInverse,
          getInverse = getInverse)
+    ## Returns a list containing 4 functions to
+    ## 1. set the value of the matrix
+    ## 2. get the value of the matrix
+    ## 3. set the value of the inverse
+    ## 4. get the value of the inverse
 }
 
 
@@ -34,7 +36,7 @@ cacheSolve <- function(x, ...) {
         return(inv)
     }
     data <- x$get()
-    inv <- inverse(data, ...)
+    inv <- solve(data, ...)
     x$setInverse(inv)
     inv    ## Return a matrix that is the inverse of 'x'
 }
